@@ -6,7 +6,7 @@ export default function Forms() {
     const [descrip, setDescrip] = useState("");
 
     const onSubmitHandler = e => {
-        e.preventDefault();
+        // e.preventDefault();
         axios.post('http://localhost:8000/api/product',{
             title,
             price,
