@@ -9,18 +9,26 @@ export default function Forms() {
 
     const onSubmitHandler = e => {
         e.preventDefault();
-        axios.post('http://localhost:8000/api/product',{
-            title,
-            price,
-            descrip
-        })
-        .then(res => setProducts([...products,res.data]))
-        .catch(err => console.log(err))
-        
-        e.target.reset();
-        setTitle('');
-        setPrice(0);
-        setDescrip('')
+        if(title !== "" && price > 0){
+            axios.post('http://localhost:8000/api/product',{
+                title,
+                price,
+                descrip
+            })
+            .then(res => {
+                setProducts([...products,res.data])
+                alert("New product create")
+            })
+            .catch(err => console.log(err))
+            
+            e.target.reset();
+            setTitle('');
+            setPrice(0);
+            setDescrip('')
+        }else{
+            alert("Title and price requered")
+        }
+       
     }
 
     return (

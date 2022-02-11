@@ -15,7 +15,10 @@ export const Detail = () => {
   
   const deleteProduct = (id) => {
     axios.delete(`http://localhost:8000/api/product/${id}`)
-      .then(res => removeFromDom(id))
+      .then(res => {
+        removeFromDom(id)
+        alert(`Delete ${product.title}`)
+      })
   }
   return (
     <div className="card">
