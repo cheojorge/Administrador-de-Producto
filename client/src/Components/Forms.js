@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios';
+import { myContext } from '../Context/myContext';
 export default function Forms() {
+    const {products, setProducts} = useContext(myContext)
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState(0);
     const [descrip, setDescrip] = useState("");
 
     const onSubmitHandler = e => {
-        // e.preventDefault();
+        e.preventDefault();
         axios.post('http://localhost:8000/api/product',{
             title,
             price,
             descrip
         })
-        .then(res => console.log(res))
+        .then(res => setProducts([...products,res.data]))
         .catch(err => console.log(err))
-
+        
         e.target.reset();
         setTitle('');
         setPrice(0);
@@ -33,10 +35,10 @@ export default function Forms() {
             </div>
             <div className="form-floating">
                 <textarea onChange ={ e => setDescrip(e.target.value) } className="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                <label htmlFor="floatingTextarea">Comments</label>
+                <label htmlFor="floatingTextarea">Description</label>
             </div>
 
-            <button type="submit" className="btn btn-primary mt-3">Submit</button>
+            <button type="submit" className="btn btn-primary mt-3">Crear</button>
         </form>
     )
 }
